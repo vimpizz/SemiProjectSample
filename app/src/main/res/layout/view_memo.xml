@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/itemImg"
+            android:id="@+id/memoImg"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="5dp"

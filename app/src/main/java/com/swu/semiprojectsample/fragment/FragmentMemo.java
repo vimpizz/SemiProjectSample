@@ -1,7 +1,10 @@
 package com.swu.semiprojectsample.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +14,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.swu.semiprojectsample.R;
+import com.swu.semiprojectsample.activity.MainActivity;
 import com.swu.semiprojectsample.activity.ModifyMemoActivity;
 import com.swu.semiprojectsample.activity.NewMemoActivity;
 import com.swu.semiprojectsample.bean.MemberBean;
@@ -27,6 +33,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.zip.Inflater;
 
 public class FragmentMemo extends Fragment {
@@ -113,7 +120,7 @@ public class FragmentMemo extends Fragment {
             Button btnDetail = view.findViewById(R.id.btnDetail);
 
             // 객체 획득
-            //ImageView imgView = view.findViewById(R.id.itemImg);
+            ImageView memoImg = view.findViewById(R.id.memoImg);
             TextView txtvMemo = view.findViewById(R.id.txtvMemo);
             TextView txtvDate = view.findViewById(R.id.txtvDate);
 
@@ -121,7 +128,8 @@ public class FragmentMemo extends Fragment {
             final MemoBean memo = memos.get(i);
 
             // 원본 데이터를 UI에 적용
-            //imgView.setImageResource(memo.getImgId());
+            if( memo.memoPicPath != null ){
+                memoImg.setImageURI(Uri.fromFile(new File(memo.memoPicPath))); }
             txtvMemo.setText(memo.memo);
             txtvDate.setText(memo.memoDate);
 
@@ -133,19 +141,49 @@ public class FragmentMemo extends Fragment {
                     Intent intent = new Intent(mContext, ModifyMemoActivity.class);
                     intent.putExtra("INDEX", i);   // 원본데이터의 순번
                     intent.putExtra("MEMO_ID", memo.memoId);
-                    //intent.putExtra("MEMO", (Serializable) memo); // 상세표시할 원본 데이터
                     startActivity(intent);
                 }
             });
 
-            btnDelete.setOnClickListener(new View.OnClickListener() {
+            btnDelete.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    FileDB.deleteMemo(mContext,member.memId,memo.memoId);
+                    showDialog(getActivity(), "알림창","이 메모를 삭제하겠습니까?", "예", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                FileDB.deleteMemo(mContext,member.memId,memo.memoId);
+                                memos = FileDB.getMemberMemoList(mContext, member.memId);
+                                notifyDataSetChanged(); //갱신해라 명령어 어댑터를
+                                Toast.makeText(getContext(), "메모를 삭제하였습니다", Toast.LENGTH_SHORT).show();
+                            }
+                        },
+                        "아니요", new DialogInterface.OnClickListener()  {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        }
+                );
                 }
             });
-
             return view; // 완성된 UI 리턴
         }
+    }
+
+    public static void showDialog(Context context, String title, String msg,
+                                  String okMsg, DialogInterface.OnClickListener okListener,
+                                  String cancelMsg, DialogInterface.OnClickListener cancelListener
+    ) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(msg);
+
+        if (okListener != null) {
+            builder.setPositiveButton(okMsg, okListener);
+        }
+
+        if (cancelListener != null) {
+            builder.setNegativeButton(cancelMsg, cancelListener);
+        }
+        builder.show(); // 표시
     }
 }

@@ -35,11 +35,10 @@ public class FragmentMember extends Fragment {
         //파일DB에서 가져온다
         MemberBean memberBean = FileDB.getLoginMember(getActivity());
 
-        //Uri uri = Uri.fromFile(new File(memberBean.photoPath));
-      /*  if(Uri.fromFile(new File(memberBean.photoPath))!=null){
-            imgProfile.setImageURI(Uri.fromFile(new File(memberBean.photoPath)));
-        }*/
 
+       if( memberBean.photoPath != null ){
+            imgProfile.setImageURI(Uri.fromFile(new File(memberBean.photoPath)));
+        }
         txtMemId.setText("아이디 : "+memberBean.memId);
         txtMemName.setText("이름 : "+memberBean.memName);
         txtMemPw.setText("비밀번호 : "+memberBean.memPw);

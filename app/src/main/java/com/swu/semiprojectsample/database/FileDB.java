@@ -161,8 +161,9 @@ public class FileDB {
         MemberBean findMember =  getFindMember(context,memId);
         List<MemoBean> memoList = getMemberMemoList(context,memId);
         MemoBean m = findMemo(context,memId,memoId);
+
         for(int i=0;i<memoList.size();i++) {
-            if(memoList.get(i)==m) {
+            if(memoList.get(i).memoId==m.memoId) {
                 memoList.remove(i);
                 break;
             }

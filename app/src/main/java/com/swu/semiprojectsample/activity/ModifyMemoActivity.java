@@ -101,14 +101,15 @@ public class ModifyMemoActivity extends AppCompatActivity {
         }
     }
 
-    //저장버튼 저장처리
+    //수정하기 버튼 저장처리
     private void updateProc(){
         //첫번째 플러그먼트의 EditText 값을 받아온다.
         FragmentModifyWrite f0 =(FragmentModifyWrite)mViewPagerAdapter.instantiateItem(mViewPager, 0);
         ////두번째 플러그먼트의 mPhotoPath 값을 받아온다.
         FragmentModifyCamera f1 =(FragmentModifyCamera)mViewPagerAdapter.instantiateItem(mViewPager, 1);
 
-        EditText edtWriteMemo = f0.getView().findViewById(R.id.edtWriteMemo);
+        EditText edtWriteMemo = f0.getView().findViewById(R.id.edtModifyWriteMemo);
+        long memoId = f0.memoId;
         String memoStr = edtWriteMemo.getText().toString();
         String photoPath = f1.mPhotoPath;
 
@@ -117,13 +118,14 @@ public class ModifyMemoActivity extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
         //TODO 파일에 저장처리
-        MemoBean newMemo = new MemoBean();
-        newMemo.memo=memoStr;
-        newMemo.memoPicPath=photoPath;
-        newMemo.memoDate=timeStamp;
+        MemoBean memo = new MemoBean();
+        memo.memo=memoStr;
+        memo.memoPicPath=photoPath;
+        memo.memoDate=timeStamp;
+        memo.memoId = memoId;
 
         MemberBean member = FileDB.getLoginMember(this);
-        FileDB.addMemo(this,member.memId, newMemo);
+        FileDB.setMemo(this,member.memId,memo,memoId );
 
         finish();
 

@@ -24,6 +24,7 @@ import com.swu.semiprojectsample.bean.MemoBean;
 import com.swu.semiprojectsample.database.FileDB;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
@@ -107,7 +108,7 @@ public class FragmentMemo extends Fragment {
         public View getView(final int i, View view, ViewGroup viewGroup) {
             // view_item.xml 획득
             view = inflater.inflate(R.layout.view_memo, null);
-            Button btnUpdate = view.findViewById(R.id.btnUpdate);
+            //Button btnUpdate = view.findViewById(R.id.btnUpdate);
             Button btnDelete = view.findViewById(R.id.btnDelete);
             Button btnDetail = view.findViewById(R.id.btnDetail);
 
@@ -125,13 +126,14 @@ public class FragmentMemo extends Fragment {
             txtvDate.setText(memo.memoDate);
 
 
-            // 이미지를 클릭했을 때 -> 상세화면 이동
+            // 버튼 클릭했을 때 -> 상세화면 이동
             btnDetail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, ModifyMemoActivity.class);
-                    //intent.putExtra("INDEX", i);   // 원본데이터의 순번
-                    //intent.putExtra("ITEM", item); // 상세표시할 원본 데이터
+                    intent.putExtra("INDEX", i);   // 원본데이터의 순번
+                    intent.putExtra("MEMO_ID", memo.memoId);
+                    //intent.putExtra("MEMO", (Serializable) memo); // 상세표시할 원본 데이터
                     startActivity(intent);
                 }
             });
@@ -139,7 +141,7 @@ public class FragmentMemo extends Fragment {
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    FileDB.deleteMemo(mContext,member.memId,memo.memoId);
                 }
             });
 

@@ -74,4 +74,12 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(i);
         }
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mEdtId.setText("");
+        mEdtPw.setText("");
+
+    }
 }

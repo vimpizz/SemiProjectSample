@@ -134,27 +134,45 @@ public class FileDB {
             return findMember.memoList;
     }
 
-    //기존 메모 교체
-    public  static void setMemo(Context context,String memId, MemoBean memoBean){
+    //기존 메모 수정
+    public  static void setMemo(Context context,String memId, MemoBean memoBean, long memoId){
         MemberBean findMember =  getFindMember(context,memId);
         List<MemoBean> memoList = getMemberMemoList(context,memId);
+        MemoBean m = findMemo(context,memId,memoId);
 
-        memoList
+        m.memo=memoBean.memo;
+        m.memoDate=memoBean.memoDate;
+        m.memoPicPath=memoBean.memoPicPath;
+        m.memoId=memoBean.memoId;
 
+        for(int i=0;i<memoList.size();i++) {
+            if(memoList.get(i).memoId==memoId) {
+                memoList.set(i,m);
+                break;
+            }
+        }
 
-
+        findMember.memoList = memoList;
+        setMember(context,findMember);
     }
 
     //메모 삭제
     public static void deleteMemo(Context context,String memId, long memoId){
         MemberBean findMember =  getFindMember(context,memId);
         List<MemoBean> memoList = getMemberMemoList(context,memId);
-        memoList.remove(memoId);
+        MemoBean m = findMemo(context,memId,memoId);
+        for(int i=0;i<memoList.size();i++) {
+            if(memoList.get(i)==m) {
+                memoList.remove(i);
+                break;
+            }
+        }
 
-
-
+        findMember.memoList = memoList;
+        setMember(context,findMember);
     }
 
+    //특정 메모 찾기
     public static MemoBean findMemo(Context context,String memId, long memoId){
         List<MemoBean> memoList = getMemberMemoList(context,memId);
         MemoBean m=null;

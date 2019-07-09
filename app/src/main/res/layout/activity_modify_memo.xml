@@ -4,23 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="11">
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="메모 상세보기"
-        android:background="#00BCD4"
-        android:textColor="#FFFFFF"
+        android:textColor="#0C0C0C"
         android:textSize="30sp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
     </com.google.android.material.tabs.TabLayout>
 
 
@@ -28,44 +29,33 @@
         android:id="@+id/viewPager3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.6">
+        android:layout_weight="8">
     </androidx.viewpager.widget.ViewPager>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/btnModifyCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="취소"
-            android:background="#00BCD4"
-            android:textColor="#FFFFFF"
-            android:layout_margin="5dp"/>
+            android:background="#F3D97D"
+            android:textColor="#0C0C0C"
+            android:layout_margin="20dp"/>
 
         <Button
             android:id="@+id/btnModifyUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="수정하기"
-            android:background="#00BCD4"
-            android:textColor="#FFFFFF"
-            android:layout_margin="5dp"/>
-
-
-
-        <!--    <Button
-                android:id="@+id/btnDeleteMemo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="삭제"
-                android:background="#00BCD4"
-                android:textColor="#FFFFFF"
-                android:layout_margin="5dp"/>-->
-
+            android:text="저장하기"
+            android:background="#F3D97D"
+            android:textColor="#0C0C0C"
+            android:layout_margin="20dp"/>
 
     </LinearLayout>
 

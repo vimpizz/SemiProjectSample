@@ -13,7 +13,7 @@
         android:id="@+id/imgMemo"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/chr"
         android:layout_margin="5dp"/>
 
     <Button
@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="사진찍기"
-        android:background="#00BCD4"
-        android:textColor="#FFFFFF" />
+        android:background="#F3D97D"
+        android:textColor="#0C0C0C"
+        android:layout_margin="10dp"/>
 </LinearLayout>

@@ -6,9 +6,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -35,6 +37,16 @@ public class NewMemoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_memo);
+
+
+
+        TextView textView2 = findViewById(R.id.textView2);
+        Typeface typeface = Typeface.createFromAsset(getResources().getAssets(),"godo.ttf");
+        textView2.setTypeface(typeface);
+
+
+
+
 
         mTabLayout = findViewById(R.id.tabLayout);
         mViewPager = findViewById(R.id.viewPager);
@@ -128,6 +140,7 @@ public class NewMemoActivity extends AppCompatActivity {
 
         MemberBean member = FileDB.getLoginMember(this);
         FileDB.addMemo(this,member.memId, newMemo);
+
 
         finish();
 

@@ -6,9 +6,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -58,6 +60,11 @@ public class ModifyMemoActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) { }
         });
+
+
+        TextView textView3 = findViewById(R.id.textView3);
+        Typeface typeface = Typeface.createFromAsset(getResources().getAssets(),"godo.ttf");
+        textView3.setTypeface(typeface);
     }
 
     private View.OnClickListener mBtnClick = new View.OnClickListener() {

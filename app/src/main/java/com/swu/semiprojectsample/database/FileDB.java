@@ -102,7 +102,7 @@ public class FileDB {
         String str = getSP(context).getString("loginMemberBean",null);
         if(str == null) return null;
         MemberBean memberBean = mGson.fromJson(str, MemberBean.class);
-        return memberBean;
+        return getFindMember(context, memberBean.memId);
     }
 
     //메모를 추가하는 메서드
@@ -142,6 +142,7 @@ public class FileDB {
 
         m.memo=memoBean.memo;
         m.memoDate=memoBean.memoDate;
+
         m.memoPicPath=memoBean.memoPicPath;
         m.memoId=memoBean.memoId;
 

@@ -43,7 +43,7 @@ public class FragmentModifyCamera extends Fragment {
 
     private long memoId;
 
-    public String mPhotoPath = "/sdcard/hello/wr.jpg";
+    public String mPhotoPath = null;
 
     @Nullable
     @Override
@@ -59,11 +59,15 @@ public class FragmentModifyCamera extends Fragment {
             MemberBean member = FileDB.getLoginMember(getContext());
             MemoBean memo = FileDB.findMemo(getContext(),member.memId,memoId);
             if( memo.memoPicPath != null ){
+                mPhotoPath=memo.memoPicPath;
                 mImgProfile.setImageURI(Uri.fromFile(new File(memo.memoPicPath))); }
-            mImgProfile.setImageURI(Uri.fromFile(new File(memo.memoPicPath)));
+            else{
+                //mImgProfile.setImageDrawable(R.drawable.chr);
+            }
         }
 
         Button btnCamera = view.findViewById(R.id.btnCameraModifyMemo);
+
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override

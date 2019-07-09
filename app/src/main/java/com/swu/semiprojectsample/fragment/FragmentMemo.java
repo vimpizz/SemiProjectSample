@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -53,6 +54,7 @@ public class FragmentMemo extends Fragment {
         View view = inflater.inflate(R.layout.fragment_memo,container, false);
 
         mLstMemo = view.findViewById(R.id.lstMemo);
+        member= FileDB.getLoginMember(getContext());
 
        view.findViewById(R.id.btnNewMemo).setOnClickListener(new View.OnClickListener() {
            @Override
@@ -67,7 +69,7 @@ public class FragmentMemo extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        member= FileDB.getLoginMember(getContext());
+
         memos = FileDB.getMemberMemoList(getContext(),member.memId);
 
         adapter = new ListAdapter(memos,getContext());
@@ -128,10 +130,18 @@ public class FragmentMemo extends Fragment {
             final MemoBean memo = memos.get(i);
 
             // 원본 데이터를 UI에 적용
-            if( memo.memoPicPath != null ){
-                memoImg.setImageURI(Uri.fromFile(new File(memo.memoPicPath))); }
+             if( memo.memoPicPath != null ){
+                if(!memo.memoPicPath.equals("/sdcard/hello/wr.jpg"))
+                     memoImg.setImageURI(Uri.fromFile(new File(memo.memoPicPath))); }
             txtvMemo.setText(memo.memo);
             txtvDate.setText(memo.memoDate);
+
+
+            Typeface typeface = Typeface.createFromAsset(getResources().getAssets(),"godo.ttf");
+            txtvMemo.setTypeface(typeface);
+            txtvDate.setTypeface(typeface);
+/*            btnDelete.setTypeface(typeface);
+            btnDetail.setTypeface(typeface);*/
 
 
             // 버튼 클릭했을 때 -> 상세화면 이동

@@ -3,11 +3,13 @@ package com.swu.semiprojectsample.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.swu.semiprojectsample.R;
@@ -31,6 +33,14 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener(mBtnLoginClick);
         btnJoin.setOnClickListener(mBtnJoinClick);
+
+
+
+        TextView textView1 = findViewById(R.id.textView1);
+        Typeface typeface = Typeface.createFromAsset(getResources().getAssets(),"godo.ttf");
+        textView1.setTypeface(typeface);
+
+
     }
 
     //로그인 버튼 클릭 이벤트

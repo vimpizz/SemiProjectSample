@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Typeface;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +30,9 @@ import com.swu.semiprojectsample.bean.MemberBean;
 import com.swu.semiprojectsample.database.FileDB;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.channels.MembershipKey;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,6 +59,11 @@ public class CameraCapture2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
+
+        TextView textView5 = findViewById(R.id.textView5);
+        Typeface typeface = Typeface.createFromAsset(getResources().getAssets(),"godo.ttf");
+        textView5.setTypeface(typeface);
+
 
         //카메라를 사용하기 위한 퍼미션을 요청한다.
         ActivityCompat.requestPermissions(this, new String[]{
@@ -191,7 +201,38 @@ public class CameraCapture2Activity extends AppCompatActivity {
         Bitmap rotatedBmp = roate(resizedBmp, exifDegree);
         mImgProfile.setImageBitmap( rotatedBmp );
 
-        Toast.makeText(this,"사진경로 : "+ mPhotoPath, Toast.LENGTH_SHORT).show();
+        saveBitmapToFileCache(resizedBmp, mPhotoPath);
+
+        //Toast.makeText(this,"사진경로 : "+ mPhotoPath, Toast.LENGTH_SHORT).show();
+    }
+
+    private void saveBitmapToFileCache(Bitmap bitmap, String strFilePath) {
+
+        File fileCacheItem = new File(strFilePath);
+        OutputStream out = null;
+
+        try
+        {
+            fileCacheItem.createNewFile();
+            out = new FileOutputStream(fileCacheItem);
+
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                out.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     private int exifOrientToDegree(int exifOrientation) {

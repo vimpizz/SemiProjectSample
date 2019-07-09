@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#E6E2E2"
+        android:background="#72C1F18D"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -39,7 +39,7 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:text="날짜"
-                android:textSize="15dp"/>
+                android:textSize="15dp" />
 
 
             <LinearLayout
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-   <!--             <Button
+                <!--             <Button
                     android:id="@+id/btnUpdate"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
@@ -62,9 +62,9 @@
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="10dp"
-                    android:background="#00BCD4"
+                    android:background="#F3D97D"
                     android:text="삭제"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#0C0C0C"
                     android:textSize="10dp" />
 
                 <Button
@@ -72,9 +72,9 @@
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="10dp"
-                    android:background="#00BCD4"
+                    android:background="#F3D97D"
                     android:text="상세보기"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#0C0C0C"
                     android:textSize="10dp" />
 
             </LinearLayout>
